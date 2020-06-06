@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ContactCard } from "../component/ContactCard.js";
 import { Modal } from "../component/Modal";
+import PropTypes from "prop-types";
 
 export const Contacts = () => {
 	const [state, setState] = useState({ showModal: false });
@@ -20,7 +21,7 @@ export const Contacts = () => {
 						{store.allContacts.map((data, index) => {
 							return (
 								<ContactCard
-									key={index}
+									key={data.id}
 									history={data}
 									onDelete={() => {
 										setState({ showModal: true });
@@ -34,4 +35,10 @@ export const Contacts = () => {
 			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} />
 		</div>
 	);
+};
+
+Contacts.propTypes = {
+	history: PropTypes.any,
+	onDelete: PropTypes.func,
+	onEdit: PropTypes.func
 };
