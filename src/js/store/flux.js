@@ -83,8 +83,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.catch(error => console.error("Error:", error))
 					.then(data => getActions().loadContacts());
 			},
-			editContact(id, editName, editPhone, editEmail, editAddress) {
-				fetch(url_base + id, {
+			async editContact(id, editName, editPhone, editEmail, editAddress) {
+				await fetch(url_base + id, {
 					method: "put",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -94,10 +94,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 						address: editAddress,
 						agenda_slug: "Asanchez2"
 					})
-				}).then(() => {
+				}).then(async () => {
 					const currentStore = getStore();
-					let url = url_base + "agenda/" + name;
-					fetch(url)
+					let url = url_base + "agenda/" + "Asanchez2";
+					await fetch(url)
 						.then(res => res.json())
 						.then(data => {
 							setStore({

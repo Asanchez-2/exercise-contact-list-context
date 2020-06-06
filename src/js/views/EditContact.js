@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link, useRouteMatch, useParams } from "react-router-dom";
+import { Link, useRouteMatch, useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const EditContact = () => {
 	const { store, actions } = useContext(Context);
 	const match = useRouteMatch();
+	const history = useHistory();
 	const [editName, setName] = useState("");
 	const [editPhone, setPhone] = useState("");
 	const [editEmail, setEmail] = useState("");
@@ -22,7 +23,7 @@ export const EditContact = () => {
 				setAddress(contact.address);
 			}
 		}
-	}, [store.allContacts]);
+	}, []);
 
 	return (
 		<div className="container">
@@ -69,22 +70,21 @@ export const EditContact = () => {
 							onChange={e => setAddress(e.target.value)}
 						/>
 					</div>
-					<Link to={"/"}>
-						<button
-							type="button"
-							className="btn btn-primary form-control"
-							onClick={() => {
-								actions.editContact(
-									match.params.contactId,
-									editName,
-									editPhone,
-									editEmail,
-									editAddress
-								);
-							}}>
-							Update changes
-						</button>
-					</Link>
+					<button
+						type="button"
+						className="btn btn-primary form-control"
+						onClick={async () => {
+							await actions.editContact(
+								match.params.contactId,
+								editName,
+								editPhone,
+								editEmail,
+								editAddress
+							);
+							history.push("/");
+						}}>
+						Update changes
+					</button>
 					<Link className="mt-3 w-100 text-center" to="/">
 						or get back to contacts
 					</Link>
