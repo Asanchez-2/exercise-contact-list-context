@@ -21,10 +21,10 @@ export const ContactCard = props => {
 							<button className="btn">
 								<i className="fas fa-pencil-alt mr-3" />
 							</button>
-							<button className="btn" onClick={() => props.onDelete()}>
-								<i className="fas fa-trash-alt" />
-							</button>
 						</Link>
+						<button className="btn" onClick={() => props.onDelete()}>
+							<i className="fas fa-trash-alt" />
+						</button>
 					</div>
 					<label className="name lead">{props.history.full_name}</label>
 					<br />
